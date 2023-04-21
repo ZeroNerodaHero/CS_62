@@ -5,7 +5,10 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <unordered_map>
+#include <unordered_set>
 #include <queue>
+#include <stack>
 using namespace std;
 
 Network::Network(){}; 
@@ -119,6 +122,14 @@ User Network::get_user(int id){
     }
     return User();
 }
+
+/*
+Note:
+My implementation of shortest_path is basically to store a queue of vectors.
+Essentially instead of using just integers, I push a whole vector in. I don't actually use
+the varaibles from step two because by using a vector I have encapsualted not only the
+next users by putting them at the back of the vector and also stored the whole sequence.
+*/
 vector<int> Network::shortest_path(int from, int to){
     if(from == to) return vector<int>(1,from);
     queue<vector<int> > q;
@@ -168,4 +179,58 @@ vector<vector<int> > Network::groups(){
         ans.push_back(s);
     }
     return ans;
+}
+vector<int> Network::suggest_friends(int who, int& score){
+    unordered_map<int,int> m;
+    m[who] = -1;
+    int mx = -1;
+    vector<int> ret;
+
+    User source =  get_user(who);
+    for(auto it:source.getConn()) m[it] = -1;
+    for(auto it:source.getConn()){
+        for(auto it2:get_user(it).getConn()){
+            if(m.find(it2) != m.end()){
+                if(m[it2] == -1) continue;
+                m[it2]++;
+            } else{
+                m[it2] = 1;
+            }
+            if(mx <= m[it2]){
+                if(mx != m[it2]) ret.clear();
+                mx = m[it2];
+                ret.push_back(it2);
+            }
+        }
+    }
+    score = mx;
+    return ret;
+}
+vector<int> Network::distance_user(int from, int& to, int distance){
+    stack<pair<vector<int>,unordered_set<int> > > s;
+    s.push(make_pair(vector<int>(1,from),unordered_set<int>()));
+    s.top().second.insert(from);
+    
+    while(!s.empty()){
+        vector<int> tp = s.top().first; 
+        if(tp.size() == distance+1){
+            to = tp.back();
+            return tp;
+        }
+        unordered_set<int> v = s.top().second;
+//cout << (v.find(tp.back()) == v.end() ? "not set" :"set") <<endl;
+        s.pop(); 
+        User source = get_user(tp.back());
+        
+        for(auto it : source.getConn()){
+            if(v.find(it) != v.end()) continue;
+            tp.push_back(it);
+            v.insert(it);
+            s.push(make_pair(tp,v));
+            tp.pop_back();
+            v.erase(it);
+        }
+    }
+    to = -1;
+    return vector<int>(); 
 }

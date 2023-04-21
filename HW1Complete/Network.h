@@ -22,6 +22,8 @@ class Network{
         vector<int> shortest_path(int from, int to);
         vector<vector<int> > groups();
         User get_user(int id);
+        vector<int> suggest_friends(int who, int& score);
+        vector<int> distance_user(int from, int& to, int distance);
     private:
         vector<User> conn;
 };

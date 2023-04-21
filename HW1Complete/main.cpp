@@ -56,16 +56,16 @@ int main(){
                 int id1 = test.get_id(user1);
                 int id2 = test.get_id(user2);
                 vector<int> res= test.shortest_path(id1,id2);
-                cout << "Depth: " <<res.size()-1<< endl;
                 bool isFirst = 1;
                 if(res[0] != -1){
+                    cout << "Depth: " <<res.size()-1<< endl;
                     for(auto it : res) {
                         User tmp = test.get_user(it);
                         cout << (isFirst ? "" : " -> ")+ tmp.getFname()+" "+tmp.getLname(); 
                         isFirst = 0;
                     }
                 } else{
-                    cout << "THERE IS NOT PATH BETWEEN "+user1+" "+user2 << endl;
+                    cout << "THERE IS NOT PATH BETWEEN "+user1+" and "+user2 << endl;
                 }cout <<endl;
             } else{
                 cout << "ERROR: WTF" << endl;
@@ -80,7 +80,7 @@ int main(){
                     tmp.getZip() <<endl;
             }
             
-        } else if(opt == 5){
+        } else if(opt == 5 || opt== 9){
             string fname,lname;
             ss >> fname >> lname; 
             int userId= (test.get_id(fname+" "+lname));
@@ -88,14 +88,28 @@ int main(){
                 cout << "ERROR: User not found\n";
                 continue;
             }
-            cout << "id\tname\t\t\tyear\tzip\n===========================================\n";
-            User tmp = test.get_user(userId);
-            for(auto it: tmp.getConn()){
-                User fren = test.get_user(it);
-                cout << fren.getId() << '\t' <<
-                    fren.getFname() << " " << fren.getLname() << "\t\t" <<
-                    fren.getBday() << "\t" <<
-                    fren.getZip() <<endl;
+            if(opt == 5){
+                cout << "id\tname\t\t\tyear\tzip\n===========================================\n";
+                User tmp = test.get_user(userId);
+                for(auto it: tmp.getConn()){
+                    User fren = test.get_user(it);
+                    cout << fren.getId() << '\t' <<
+                        fren.getFname() << " " << fren.getLname() << "\t\t" <<
+                        fren.getBday() << "\t" <<
+                        fren.getZip() <<endl;
+                }
+            } else if(opt == 9){
+                int score; 
+                vector<int> frenList = test.suggest_friends(userId,score);
+                cout << "The suggested friend(s) is/are:" << endl;
+                if(score != -1){
+                    for(auto it: frenList){
+                        User frenSug = test.get_user(it);
+                        cout << "\t"+frenSug.getFname()+" "+frenSug.getLname()+"\tScore: "<<score << endl;
+                    }
+                } else {
+                    cout << "NONE" << endl;
+                }
             }
         } else if(opt == 6){
             string outfile;
@@ -113,8 +127,30 @@ int main(){
                     flag= 0;
                 } cout << endl;
             }
-
+        } else if(opt == 10){
+            string fname,lname;
+            ss >> fname >> lname; 
+            string read_dist;
+            ss >> read_dist;
+            int dist = stoi(read_dist);
+            int userId;
+            vector<int> path = test.distance_user(test.get_id(fname+" "+lname),userId,dist);
+            if(userId != -1){
+                User fUser= test.get_user(userId);
+                
+                cout << "PATH of "<<dist <<" from "<<fname+" "+lname<<" to "
+                        << fUser.getFname()+" "+fUser.getLname() << endl;
+                bool isFirst = 1;
+                for(auto it:path){
+                    User tmp = test.get_user(it);
+                    cout << (isFirst?"":"->")<<tmp.getFname()+" "+tmp.getLname();
+                    isFirst = 0;
+                } cout << endl;
+            } else {
+                cout << "No path that long exists from user" << endl;
+            }
         } else{
+            cout << "Exiting" << endl;
             break;
         }
         cout << "\t\t\t ... \n";

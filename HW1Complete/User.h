@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 using namespace std;
+//I do not use depth and predecessor here because I feel that they are not as useful for the implementation of searching and group algorithm that I used.
 
 class User{
     public:
@@ -24,6 +25,7 @@ class User{
     private:
         int id;
         int bday, zip;        
+        int depth,predecessor;
         string f_name, l_name;
         vector<int> conn;
 };
