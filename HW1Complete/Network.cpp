@@ -1,4 +1,6 @@
 #include "Network.h"
+#include "Post.h"
+#include "DirectMessage.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -233,4 +235,31 @@ vector<int> Network::distance_user(int from, int& to, int distance){
     }
     to = -1;
     return vector<int>(); 
+}
+string Network::displayPosts(string who, int cnt){
+    User* cur = getUserPointer(get_id(who));
+    return cur->displayPosts(cnt);
+}
+string Network::displayDM(string from,string to, int cnt){
+    User* cur = getUserPointer(get_id(from));
+    User* u_to= getUserPointer(get_id(to));
+    return cur->displayDm(get_id(to),u_to->getFname()+" "+u_to->getLname(),cnt);
+}
+void Network::addPost(string who,string msg, int likes, int id){
+    User* cur = getUserPointer(get_id(who));
+    cur->addPost(new Post(id,get_id(who),likes,msg)); 
+}
+void Network::addDM(string who,string msg, int likes, int id,string to){
+    User* u_cur = getUserPointer(get_id(who));
+    User* u_to= getUserPointer(get_id(to));
+    u_cur->addPost(new DirectMessage(id,get_id(who),get_id(to),likes,msg)); 
+    u_to->addPost(new DirectMessage(id,get_id(who),get_id(to),likes,msg)); 
+}
+User* Network::getUserPointer(int id){
+    for(int i = 0; i < conn.size(); i++){
+        if(conn[i].getId()== id){
+            return &conn[i];
+        }
+    }
+    return nullptr;
 }

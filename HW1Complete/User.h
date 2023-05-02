@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "Post.h"
+#include "DirectMessage.h"
 using namespace std;
 //I do not use depth and predecessor here because I feel that they are not as useful for the implementation of searching and group algorithm that I used.
 
@@ -22,11 +24,18 @@ class User{
         string getLname(){return l_name;}
         vector<int> getConn(){return conn;}
         int getConn(int it){return conn[it];}
+
+        void addPost(Post* p);
+        string displayPosts(int cnt);
+        string displayDm(int who, string name, int cnt);
     private:
         int id;
         int bday, zip;        
         int depth,predecessor;
         string f_name, l_name;
         vector<int> conn;
+        vector<Post* > messages;
+
+        bool checkPostType(Post* p);
 };
 #endif

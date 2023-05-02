@@ -1,7 +1,7 @@
 COMP=g++
 VERSION=-std=c++11
 FLAGS=-Wall -g
-OBJ=main.o Network.o User.o
+OBJ=main.o Network.o User.o 
 
 full: $(OBJ)
 	make $^
@@ -13,7 +13,7 @@ full: $(OBJ)
 Output: 
 	$(COMP) *.o -o output $(VERSION)
 tmp: 
-	$(COMP) main.cpp Network.cpp User.cpp -o output $(VERSION)
+	$(COMP) main.cpp Network.cpp User.cpp Post.cpp DirectMessage.cpp -o output $(VERSION)
 
 clean:
 	rm *.o

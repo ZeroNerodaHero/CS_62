@@ -8,11 +8,57 @@
 #include "Network.h"
 using namespace std;
 
+void readMessage(Network &n){
+    string fin = "posts";
+
+    ifstream in(fin);
+    if(in.fail()){return;}
+
+    string tmp;
+    getline(in,tmp);
+    int nPost = stoi(tmp);
+
+    for(int i = 0; i < nPost; i++){
+        vector<string> v(5,"");
+        for(int i = 0; i < 5; i++){
+            getline(in,v[i]);
+        }
+        int id,uid,likes,tid=-1;
+        stringstream s1(v[0]);s1>>id;
+        stringstream s2(v[2]);s2>>uid;
+        stringstream s3(v[3]);s3>>likes;
+
+        User from = n.get_user(uid);
+        if(from.getFname() != "Not Set"){
+            string fromName = from.getFname()+" "+from.getLname();
+            if(v[4] != ""){
+                getline(in,tmp);
+                stringstream s4(tmp);s4>>tid;
+                User to= n.get_user(tid);
+                if(to.getFname() != "Not Set"){
+                    string toName = to.getFname()+" "+to.getLname();
+                    n.addDM(fromName,v[1],likes,id,toName);
+                }
+            } else{
+                n.addPost(fromName,v[1],likes,id);
+            }
+        }
+
+/*
+        cout << id << " " 
+            << v[1] << " "
+            << uid << " "
+            << likes<< " "
+            << tid << endl;
+*/
+    }
+}
+
 int main(){
     Network test;
-    string file;
+    string file = "largeTest";
     cout << "load file > ";
-    getline(cin,file);
+    //getline(cin,file);
     if(file != ""){
         if(test.readFriends(file) == -1){
             cout << "error reading" << endl;
@@ -21,6 +67,8 @@ int main(){
             cout << "finish" << endl;
         }
     }
+    readMessage(test);
+    
     
     while(1){
         string tmp;
@@ -34,7 +82,7 @@ int main(){
             string fname,lname,byear,zip;
             ss >> fname >> lname >>byear >>zip;
             test.add_user(User(test.num_users(),stoi(byear),stoi(zip),fname,lname,vector<int>()));
-        } else if(opt == 2 || opt == 3 || opt == 7){
+        } else if(opt == 2 || opt == 3 || opt == 7 || opt == 12){
             string fname1,lname1;
             string fname2,lname2;
             ss >> fname1 >> lname1;
@@ -67,6 +115,10 @@ int main(){
                 } else{
                     cout << "THERE IS NOT PATH BETWEEN "+user1+" and "+user2 << endl;
                 }cout <<endl;
+            } else if(opt == 12){
+                string scnt; ss >> scnt;
+                int cnt = stoi(scnt);
+                cout << test.displayDM(user1,user2,cnt) << endl;
             } else{
                 cout << "ERROR: WTF" << endl;
             }
@@ -80,7 +132,7 @@ int main(){
                     tmp.getZip() <<endl;
             }
             
-        } else if(opt == 5 || opt== 9){
+        } else if(opt == 5 || opt== 9 || opt==11){
             string fname,lname;
             ss >> fname >> lname; 
             int userId= (test.get_id(fname+" "+lname));
@@ -110,6 +162,14 @@ int main(){
                 } else {
                     cout << "NONE" << endl;
                 }
+            } else if(opt == 11){
+                int cnt = 0;
+                string scnt; 
+                ss >> scnt;
+                stringstream sc(scnt);
+                sc >> cnt;
+                
+                cout << test.displayPosts(fname+" "+lname,cnt) << endl;
             }
         } else if(opt == 6){
             string outfile;
