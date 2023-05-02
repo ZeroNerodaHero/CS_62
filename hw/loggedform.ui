@@ -13,27 +13,17 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="phone">
+  <widget class="QLabel" name="id">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>50</y>
-     <width>57</width>
-     <height>15</height>
+     <x>720</x>
+     <y>10</y>
+     <width>61</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>phone</string>
-   </property>
-  </widget>
-  <widget class="QTableWidget" name="postTable">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>10</y>
-     <width>441</width>
-     <height>571</height>
-    </rect>
+    <string>id</string>
    </property>
   </widget>
   <widget class="QTableWidget" name="friendTable">
@@ -50,9 +40,9 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>30</y>
-     <width>57</width>
-     <height>15</height>
+     <y>40</y>
+     <width>241</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -63,9 +53,9 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>90</y>
-     <width>57</width>
-     <height>15</height>
+     <y>80</y>
+     <width>241</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -76,13 +66,160 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>70</y>
+     <y>60</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>zip</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="postBrowser">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>40</y>
+     <width>461</width>
+     <height>211</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="ulabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>10</y>
      <width>57</width>
      <height>15</height>
     </rect>
    </property>
    <property name="text">
-    <string>zip</string>
+    <string>Posts</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="header">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Your Profile</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="return_button">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>10</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Return</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="userFind">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>280</y>
+     <width>351</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>260</y>
+     <width>57</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Find User</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>370</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Suggestion</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="suggestedFriends">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>390</y>
+     <width>461</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>310</y>
+     <width>57</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Path</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="userPathRet">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>310</y>
+     <width>391</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enter User</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="findFriendButton">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>280</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Find</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="addFren">
+   <property name="geometry">
+    <rect>
+     <x>199</x>
+     <y>40</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add As Friend</string>
    </property>
   </widget>
  </widget>
