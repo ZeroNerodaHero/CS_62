@@ -11,9 +11,11 @@ loggedForm::loggedForm(QWidget *parent) :
     ui->friendTable->setColumnCount(1);
     ui->friendTable->setRowCount(5);
 
+    ui->userFind->disconnect();
     connect(ui->findFriendButton,&QPushButton::clicked,[this](){
         emit friendSearch(ui->userFind->text().toStdString());
     });
+
 }
 
 loggedForm::~loggedForm()
@@ -36,10 +38,9 @@ void loggedForm::populateTable(QTableWidget *t, vector<pair<int, QString> > data
         t->setItem(i,0,new QTableWidgetItem(data[i].second));
     }
     connect(t,&QTableWidget::cellClicked,[this,data](int x,int y){
-       qDebug() << x << " " << y;
+       qDebug() << "CLICK"<< x << " " << y;
        emit emitUserChange(data[x].first);
     });
-
 }
 
 void loggedForm::updateUser(
@@ -55,12 +56,15 @@ void loggedForm::updateUser(
             QString::fromStdString(current_user.getFname()+ " "+current_user.getLname()+"'s Profile"
         ));
         int userReturn = mainUser.getId();
-        disconnect(ui->return_button,&QPushButton::clicked,this,nullptr);
+        //disconnect(ui->return_button,&QPushButton::clicked,this,nullptr);
+        ui->return_button->disconnect();
         connect(ui->return_button,&QPushButton::clicked,[this,userReturn](){
+            qDebug() << "RETURN";
             emit emitUserChange(userReturn);
         });
         int addFrenId = newUser.getId();
-        disconnect(ui->addFren,&QPushButton::clicked,this,nullptr);
+        //disconnect(ui->addFren,&QPushButton::clicked,this,nullptr);
+        ui->addFren->disconnect();
         connect(ui->addFren,&QPushButton::clicked,[this,addFrenId](){
             emit addFriend(addFrenId);
         });
