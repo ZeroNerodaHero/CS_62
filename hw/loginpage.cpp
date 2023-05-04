@@ -8,7 +8,7 @@ loginPage::loginPage(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->loginButton,&QPushButton::clicked,[this](){
-        ui->errorBox->setText("FAILED TO LOGIN...or smthing else");
+        ui->errorBox->setText("hello");
         emit emitLogin(QString(ui->loginText->text()));
     });
 }
