@@ -28,6 +28,7 @@ class Network{
         vector<int> distance_user(int from, int& to, int distance);
 
 
+        int read_posts(string fin);
         string displayPosts(string name, int cnt);
         string displayDM(string from,string to, int cnt);
         void addPost(string who,string msg, int likes, int id);

@@ -11,7 +11,9 @@
 #include <unordered_set>
 #include <queue>
 #include <stack>
+#include <cstring>
 using namespace std;
+#include <QDebug>
 
 Network::Network(){}; 
 void Network::add_user(User u){
@@ -262,4 +264,41 @@ User* Network::getUserPointer(int id){
         }
     }
     return nullptr;
+}
+
+int Network::read_posts(string fin){
+    ifstream in(fin);
+    if(in.fail()){return 1;}
+
+    string tmp;
+    getline(in,tmp);
+    int nPost = stoi(tmp);
+qDebug() << nPost;
+    for(int i = 0; i < nPost; i++){
+        vector<string> v(5,"");
+        for(int i = 0; i < 5; i++){
+            getline(in,v[i]);
+        }
+        int id,uid,likes,tid=-1;
+        stringstream s1(v[0]);s1>>id;
+        stringstream s2(v[2]);s2>>uid;
+        stringstream s3(v[3]);s3>>likes;
+
+        User from = get_user(uid);
+        if(from.getFname() != "Not Set"){
+            string fromName = from.getFname()+" "+from.getLname();
+            if(v[4] != ""){
+                getline(in,tmp);
+                stringstream s4(tmp);s4>>tid;
+                User to= get_user(tid);
+                if(to.getFname() != "Not Set"){
+                    string toName = to.getFname()+" "+to.getLname();
+                    addDM(fromName,v[1],likes,id,toName);
+                }
+            } else{
+                addPost(fromName,v[1],likes,id);
+            }
+        }
+    }
+    return 0;
 }
