@@ -16,6 +16,16 @@ loggedForm::loggedForm(QWidget *parent) :
         emit friendSearch(ui->userFind->text().toStdString());
     });
 
+    connect(ui->friendTable,&QTableWidget::cellClicked,[this](int x,int y){
+       qDebug() << "CLICK"<< x << " " << y;
+       emit emitUserChange(frenList[x]);
+    });
+
+    connect(ui->suggestedFriends,&QTableWidget::cellClicked,[this](int x,int y){
+       qDebug() << "CLICK"<< x << " " << y;
+       emit emitUserChange(suggestFriends[x]);
+    });
+
 }
 
 loggedForm::~loggedForm()
@@ -37,10 +47,6 @@ void loggedForm::populateTable(QTableWidget *t, vector<pair<int, QString> > data
     for(int i = 0; i < data.size(); i++){
         t->setItem(i,0,new QTableWidgetItem(data[i].second));
     }
-    connect(t,&QTableWidget::cellClicked,[this,data](int x,int y){
-       qDebug() << "CLICK"<< x << " " << y;
-       emit emitUserChange(data[x].first);
-    });
 }
 
 void loggedForm::updateUser(
@@ -72,8 +78,7 @@ void loggedForm::updateUser(
         ui->addFren->show();
     } else{
         ui->header->setText(
-            QString::fromStdString("Your Profile"
-        ));
+            QString::fromStdString("Your Profile"));
         ui->return_button->hide();
         ui->addFren->hide();
     }
@@ -82,6 +87,12 @@ void loggedForm::updateUser(
     ui->id->setText(QString::number(current_user.getId()));
     ui->year->setText(QString::number(current_user.getBday()));
     ui->postBrowser->setText(posts);
+
+
+    frenList.clear();
+    for(auto it: frens) frenList.push_back(it.first);
+    suggestFriends.clear();
+    for(auto it: suggest) suggestFriends.push_back(it.first);
 
     populateTable(ui->friendTable,frens);
     populateTable(ui->suggestedFriends,suggest);

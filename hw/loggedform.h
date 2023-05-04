@@ -37,6 +37,9 @@ private:
     void populateTable(QTableWidget *t, vector<pair<int, QString> > data);
 
     vector<QString> genFriends();
+
+    vector<int> frenList;
+    vector<int> suggestFriends;
 };
 
 #endif // LOGGEDFORM_H

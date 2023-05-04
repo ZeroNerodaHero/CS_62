@@ -57,10 +57,13 @@ MainWindow::MainWindow(QWidget *parent)
         User newFren = net.get_user(id);
         net.add_connection(loggedUser.getFname()+" "+loggedUser.getLname(),
             newFren.getFname()+" "+newFren.getLname());
+        loggedInWidget->updateUser(
+               loggedUser,
+               current_user,genFrens(),
+               QString::fromStdString(current_user.displayPosts(5)),
+               genSuggest());
     });
 }
-
-
 MainWindow::~MainWindow()
 {
     delete ui;
