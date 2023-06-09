@@ -61,8 +61,10 @@ MainWindow::MainWindow(QWidget *parent)
                loggedUser,
                current_user,genFrens(),
                QString::fromStdString(current_user.displayPosts(5)),
-               genSuggest());
+               genSuggest(),
+               net);
     });
+    connect(loggedInWidget,&loggedForm::updateNetwork,this,&MainWindow::onUpdateNetwork);
 }
 MainWindow::~MainWindow()
 {
@@ -84,7 +86,8 @@ void MainWindow::onEmitLogin(QString str){
                loggedUser,
                current_user,genFrens(),
                QString::fromStdString(current_user.displayPosts(5)),
-               genSuggest());
+               genSuggest(),
+               net);
     }
 }
 
@@ -94,7 +97,12 @@ void MainWindow::onEmitUserClick(int id){
            loggedUser,
            current_user,genFrens(),
            QString::fromStdString(current_user.displayPosts(5)),
-           genSuggest());
+           genSuggest(),
+           net);
+}
+
+void MainWindow::onUpdateNetwork(Network &net){
+    this->net = net;
 }
 
 vector<pair<int,QString> >  MainWindow::genFrens(){

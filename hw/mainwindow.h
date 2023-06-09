@@ -20,6 +20,7 @@ public:
 public slots:
     void onEmitLogin(QString str);
     void onEmitUserClick(int id);
+    void onUpdateNetwork(Network &net);
 private:
     Ui::MainWindow *ui;
     loggedForm *loggedInWidget;

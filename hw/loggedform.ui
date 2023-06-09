@@ -30,9 +30,9 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>110</y>
+     <y>120</y>
      <width>256</width>
-     <height>471</height>
+     <height>171</height>
     </rect>
    </property>
   </widget>
@@ -81,7 +81,7 @@
      <x>300</x>
      <y>40</y>
      <width>461</width>
-     <height>211</height>
+     <height>251</height>
     </rect>
    </property>
   </widget>
@@ -128,7 +128,7 @@
    <property name="geometry">
     <rect>
      <x>320</x>
-     <y>280</y>
+     <y>320</y>
      <width>351</width>
      <height>23</height>
     </rect>
@@ -138,7 +138,7 @@
    <property name="geometry">
     <rect>
      <x>520</x>
-     <y>260</y>
+     <y>300</y>
      <width>57</width>
      <height>15</height>
     </rect>
@@ -150,7 +150,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>520</x>
+     <x>310</x>
      <y>370</y>
      <width>81</width>
      <height>16</height>
@@ -166,7 +166,7 @@
      <x>310</x>
      <y>390</y>
      <width>461</width>
-     <height>192</height>
+     <height>181</height>
     </rect>
    </property>
   </widget>
@@ -174,7 +174,7 @@
    <property name="geometry">
     <rect>
      <x>310</x>
-     <y>310</y>
+     <y>350</y>
      <width>57</width>
      <height>15</height>
     </rect>
@@ -187,7 +187,7 @@
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>310</y>
+     <y>350</y>
      <width>391</width>
      <height>16</height>
     </rect>
@@ -200,7 +200,7 @@
    <property name="geometry">
     <rect>
      <x>680</x>
-     <y>280</y>
+     <y>320</y>
      <width>80</width>
      <height>23</height>
     </rect>
@@ -220,6 +220,127 @@
    </property>
    <property name="text">
     <string>Add As Friend</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="DirectMessageFrenSelect">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>321</y>
+     <width>256</width>
+     <height>251</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>300</y>
+     <width>57</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DMs</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>100</y>
+     <width>57</width>
+     <height>15</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Frens</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="DirectMessageMessageView">
+   <property name="geometry">
+    <rect>
+     <x>29</x>
+     <y>299</y>
+     <width>261</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>DMS</string>
+   </property>
+   <widget class="QTextBrowser" name="DMtextView">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>90</y>
+      <width>261</width>
+      <height>141</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BackButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="newDMtext">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>240</y>
+      <width>191</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SendButton">
+    <property name="geometry">
+     <rect>
+      <x>209</x>
+      <y>240</y>
+      <width>41</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Send</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="loadMore">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>30</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load More</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="startDM">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>70</y>
+     <width>80</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DM</string>
    </property>
   </widget>
  </widget>
