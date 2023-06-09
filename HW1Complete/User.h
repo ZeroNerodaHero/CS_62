@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <unordered_set>
 #include "Post.h"
 #include "DirectMessage.h"
 using namespace std;
@@ -28,6 +29,10 @@ class User{
         void addPost(Post* p);
         string displayPosts(int cnt);
         string displayDm(int who, string name, int cnt);
+
+        void addRelationDM(int userId);
+        bool hasRelationDM(int userId);
+        unordered_set<int> getAllRelationDM();
     private:
         int id;
         int bday, zip;        
@@ -36,6 +41,9 @@ class User{
         vector<int> conn;
         vector<Post* > messages;
 
+        unordered_set<int> relationDM;
+
         bool checkPostType(Post* p);
+        int extractUserId(Post *p);
 };
 #endif

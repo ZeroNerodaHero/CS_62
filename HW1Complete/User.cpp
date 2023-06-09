@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <QDebug>
 using namespace std;
 
 User::User(){
@@ -33,6 +34,11 @@ void User::delete_friend(int f_id){
         conn.erase(it);
 }
 void User::addPost(Post* p){
+    if(checkPostType(p)){
+        DirectMessage* DM = dynamic_cast<DirectMessage*>(p);
+        addRelationDM(DM->getAuthor() == id ?
+                          DM->getRecip():DM->getAuthor());
+    }
     messages.push_back(p);
 }
 string User::displayPosts(int cnt){
@@ -46,7 +52,7 @@ string User::displayPosts(int cnt){
 }
 string User::displayDm(int who, string name, int cnt){
     string ret = "";
-    for(int i = 0,c=0; c < cnt && i<messages.size(); i++){
+    for(int i = messages.size()-1,c=0; c < cnt && i >= 0; i--){
         if(!checkPostType(messages[i])) continue;
         string tmp = messages[i]->displayPost();
 //assume propert format;
@@ -55,11 +61,11 @@ string User::displayDm(int who, string name, int cnt){
         int recip = stoi(tmp.substr(sub+2,tmp.size()-sub-3));
         
         if(recip == who ){
-            ret += ">"+tmp.substr(0,sub+1) + "\n\n";
+            ret = ">"+tmp.substr(0,sub+1) + "\n\n"+ret;
             c++;
         }
         else if(messages[i]->getAuthor() == who){
-            ret += "<"+tmp.substr(0,sub+1) + "\n\n";
+            ret = "<"+tmp.substr(0,sub+1) + "\n\n"+ret;
             c++;
         }
     }
@@ -69,4 +75,23 @@ string User::displayDm(int who, string name, int cnt){
 bool User::checkPostType(Post* p){
     string tmp = p->displayPost();
     return tmp[tmp.size()-1] == '$';
+}
+
+int User::extractUserId(Post *p){
+    string tmp = p->displayPost();
+//assume propert format;
+    int sub = tmp.size()-2;
+    while(sub > 0 && tmp[sub--] != '$');
+    int user = stoi(tmp.substr(sub+2,tmp.size()-sub-3));
+}
+
+void User::addRelationDM(int userId){
+    qDebug() << "addRelation" << userId;
+    relationDM.insert(userId);
+}
+bool User::hasRelationDM(int userId){
+    return relationDM.find(userId) != relationDM.end();
+}
+unordered_set<int> User::getAllRelationDM(){
+   return relationDM;
 }

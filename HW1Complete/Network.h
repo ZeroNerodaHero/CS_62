@@ -31,10 +31,11 @@ class Network{
         int read_posts(string fin);
         string displayPosts(string name, int cnt);
         string displayDM(string from,string to, int cnt);
-        void addPost(string who,string msg, int likes, int id);
-        void addDM(string who,string msg, int likes, int id,string to);
+        void addPost(string who,string msg, int likes, int id=-1);
+        void addDM(string who,string msg, int likes, string to,int id=-1);
     private:
         User* getUserPointer(int id);
         vector<User> conn;
+        int postId;
 };
 #endif

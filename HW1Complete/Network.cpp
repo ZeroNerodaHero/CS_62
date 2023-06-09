@@ -15,7 +15,9 @@
 using namespace std;
 #include <QDebug>
 
-Network::Network(){}; 
+Network::Network(){
+    postId = 0;
+};
 void Network::add_user(User u){
     conn.push_back(u);
 }
@@ -248,10 +250,12 @@ string Network::displayDM(string from,string to, int cnt){
     return cur->displayDm(get_id(to),u_to->getFname()+" "+u_to->getLname(),cnt);
 }
 void Network::addPost(string who,string msg, int likes, int id){
+    if(id == -1) id=++postId;
     User* cur = getUserPointer(get_id(who));
     cur->addPost(new Post(id,get_id(who),likes,msg)); 
 }
-void Network::addDM(string who,string msg, int likes, int id,string to){
+void Network::addDM(string who,string msg, int likes, string to,int id){
+    if(id == -1) id=++postId;
     User* u_cur = getUserPointer(get_id(who));
     User* u_to= getUserPointer(get_id(to));
     u_cur->addPost(new DirectMessage(id,get_id(who),get_id(to),likes,msg)); 
@@ -293,7 +297,7 @@ qDebug() << nPost;
                 User to= get_user(tid);
                 if(to.getFname() != "Not Set"){
                     string toName = to.getFname()+" "+to.getLname();
-                    addDM(fromName,v[1],likes,id,toName);
+                    addDM(fromName,v[1],likes,toName,id);
                 }
             } else{
                 addPost(fromName,v[1],likes,id);
